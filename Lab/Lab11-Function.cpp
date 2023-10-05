@@ -25,10 +25,48 @@
 */
 
 #include <stdio.h>
+#include <math.h>
+
+int calculatePower(int base, int exponent) {
+    int result = 1;
+    for (int i = 0; i < exponent; ++i) {
+        result *= base;
+    }
+    return result;
+}
+
+int isArmstrongNumber(int number) {
+    int originalNumber = number;
+    int numberOfDigits = 0;
+    int sum = 0;
+
+    while (originalNumber != 0) {
+        originalNumber /= 10;
+        ++numberOfDigits;
+    }
+
+    originalNumber = number;
+
+    while (originalNumber != 0) {
+        int digit = originalNumber % 10;
+        sum += calculatePower(digit, numberOfDigits);
+        originalNumber /= 10;
+    }
+
+    return sum == number;
+}
 
 int main() {
+    int number;
 
-    //--| YOUR CODE HERE
+    printf("Enter Number: ");
+    scanf("%d", &number);
 
-    return 0 ;
-}//end main function
+    if (isArmstrongNumber(number)) {
+        printf("Pass.\n");
+    } else {
+        printf("Not Pass.\n");
+    }
+
+    return 0;
+}
